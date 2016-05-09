@@ -1,7 +1,12 @@
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.classpath
+/target
+/.settings
+/.project
 
 # Package Files #
 *.jar
