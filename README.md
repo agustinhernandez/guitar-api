@@ -12,7 +12,7 @@
 ### `Guitar`
 | Campo        | Tipo            | Formato                | Obligatorio |
 |------------------|-----------------|------------------------|-------------|
-| id | Cadena de texto | Máximo 150 caracteres  | Sí |
+| id | Cadena de texto | *UUID* generado por el servidor | No |
 | model | Cadena de texto | Máximo 50 caracteres  | Sí |
 | year | Número entero | *yyyy*  | Sí |
 | classification | Cadena de texto | `ELECTRIC`, `ACOUSTIC` o `CLASICAL` | Sí |
@@ -45,4 +45,35 @@
 	  "bridge": "Usually proprietary Tremolo Hardtail",
 	  "pickup": "Usually 3 Single-coils or 2 Single-coils with Hot Bridge Humbucker on certain models",
 	  "imageBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBARXhpZgAATU0k3l8SoQwDEA85z9aMXjfa8to2jFWSLw2F9nzczvJ6tn//2Q=="
-}
+	}
+
+
+### `Manufacturer`
+| Campo        | Tipo            | Formato                | Obligatorio |
+|------------------|-----------------|------------------------|-------------|
+| id | Cadena de texto | *UUID* generado por el servidor | No |
+| name | Cadena de texto | Máximo 50 caracteres  | Sí |
+| formerlyCalled | Cadena de texto | Máximo 100 caracteres  | No |
+| foundedYear | Número entero | *yyyy*  | No |
+| foundedPlace | Cadena de texto | Máximo 100 caracteres  | No |
+| founder | Cadena de texto | Máximo 100 caracteres  | No |
+| headquarters | Cadena de texto | Máximo 100 caracteres  | No |
+| areaServed | Cadena de texto | Máximo 100 caracteres  | No |
+| website | Cadena de texto | Máximo 100 caracteres  | No |
+| logoBase64 | Cadena de texto | Imagen en Base 64 | No |
+
+
+**Ejemplo**:
+
+    {
+      "id": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
+      "name": "Fender",
+      "formerlyCalled": "Fender Electric Instrument Manufacturing Company",
+      "foundedYear": 1946,
+      "foundedPlace": "Fullerton, California, U.S.",
+      "founder": "Clarence Leonidas Fender",
+      "headquarters": "Scottsdale, Arizona, USA",
+      "areaServed": "Worldwide",
+      "website": "fender.com",
+	  "logoBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBARXhpZgAATU0k3l8SoQwDEA85z9aMXjfa8to2jFWSLw2F9nzczvJ6tn//2Q=="
+	}
