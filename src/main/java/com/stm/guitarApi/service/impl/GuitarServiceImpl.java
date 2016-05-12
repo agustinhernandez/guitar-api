@@ -11,7 +11,7 @@ import com.stm.guitarApi.dto.GuitarDto;
 import com.stm.guitarApi.model.Guitar;
 import com.stm.guitarApi.service.GuitarService;
 
-@Service(value = "guitarService")
+@Service
 public class GuitarServiceImpl implements GuitarService {
 	
 	@Autowired

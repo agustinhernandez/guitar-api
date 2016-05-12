@@ -14,7 +14,7 @@ import com.stm.guitarApi.model.Classification;
 import com.stm.guitarApi.model.Guitar;
 import com.stm.guitarApi.model.Manufacturer;
 
-@Component(value = "guitarDao")
+@Component
 public class GuitarDaoImpl implements GuitarDao {
 	
 	private Map<String, Guitar> guitars;
