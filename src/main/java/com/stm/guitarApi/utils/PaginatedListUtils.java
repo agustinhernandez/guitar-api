@@ -13,6 +13,10 @@ public class PaginatedListUtils {
 	}
 	
 	public static int getLastPage(int sizeList, int count) {
+		if (count <= 0) {
+			return FIRST_PAGE;
+		}
+		
 		int lastPage = (sizeList / count);
 		if (sizeList % count == 0) {
 			lastPage--;

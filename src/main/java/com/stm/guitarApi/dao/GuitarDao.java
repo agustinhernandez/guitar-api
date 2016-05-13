@@ -8,4 +8,6 @@ public interface GuitarDao {
 
 	public List<Guitar> list();
 	
+	public int count();
+	
 }

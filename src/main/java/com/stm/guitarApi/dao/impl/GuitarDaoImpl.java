@@ -104,4 +104,9 @@ public class GuitarDaoImpl implements GuitarDao {
 		return new ArrayList<Guitar>(guitars.values());
 	}
 
+	@Override
+	public int count() {
+		return guitars.size();
+	}
+
 }

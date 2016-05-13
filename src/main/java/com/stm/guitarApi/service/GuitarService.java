@@ -7,5 +7,7 @@ import com.stm.guitarApi.dto.GuitarDto;
 public interface GuitarService {
 
 	public List<GuitarDto> list(Integer page, Integer count);
+
+	public int getLastPage(int count);
 	
 }

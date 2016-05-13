@@ -72,5 +72,26 @@ public class GuitarServiceTest {
 	public void shouldListEmptyForExceededPage() {
 		assertTrue(guitarService.list(guitarsSize, guitarsSize).isEmpty());
 	}
+	
+	@Test
+	public void shouldGetLastPageByCount() {
+		assertEquals(guitarsSize - 1, guitarService.getLastPage(1));
+		assertEquals(0, guitarService.getLastPage(guitarsSize));
+	}
+	
+	@Test
+	public void shouldGetLastPageZeroForExceededCount() {
+		assertEquals(0, guitarService.getLastPage(guitarsSize + 1));
+	}
+	
+	@Test
+	public void shouldGetLastPageZeroForNegativeCount() {
+		assertEquals(0, guitarService.getLastPage(-1));
+	}
+	
+	@Test
+	public void shouldGetLastPageZeroForZeroCount() {
+		assertEquals(0, guitarService.getLastPage(0));
+	}
 
 }

@@ -47,4 +47,10 @@ public class GuitarServiceImpl implements GuitarService {
 				guitar.getImageBase64());
 	}
 
+	@Override
+	public int getLastPage(int count) {
+		int sizeList = guitarDao.count();
+		return PaginatedListUtils.getLastPage(sizeList, count);
+	}
+
 }
