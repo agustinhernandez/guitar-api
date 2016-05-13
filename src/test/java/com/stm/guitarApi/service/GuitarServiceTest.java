@@ -93,5 +93,12 @@ public class GuitarServiceTest {
 	public void shouldGetLastPageZeroForZeroCount() {
 		assertEquals(0, guitarService.getLastPage(0));
 	}
+	
+	@Test
+	public void shouldListGuitarsOrderByYear() {
+		List<GuitarDto> guitarsOrderByYear = guitarService.listOrderByYear(null, null);
+		assertTrue(guitarsOrderByYear.get(0).getYear() <= guitarsOrderByYear.get(1).getYear());
+		assertTrue(guitarsOrderByYear.get(1).getYear() <= guitarsOrderByYear.get(2).getYear());
+	}
 
 }

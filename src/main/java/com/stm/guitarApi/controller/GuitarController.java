@@ -35,5 +35,13 @@ public class GuitarController {
 	public int lastPage(@PathVariable int count) {
 		return guitarService.getLastPage(count);
 	}
+	
+	@RequestMapping(value = "/guitar/orderByYear",
+	  method = RequestMethod.GET,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public List<GuitarDto> listOrderByYear(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer count) {
+		return guitarService.listOrderByYear(page, count);
+	}
 
 }

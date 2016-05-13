@@ -9,5 +9,7 @@ public interface GuitarService {
 	public List<GuitarDto> list(Integer page, Integer count);
 
 	public int getLastPage(int count);
+
+	public List<GuitarDto> listOrderByYear(Integer page, Integer count);
 	
 }

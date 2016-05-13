@@ -19,9 +19,15 @@ public class GuitarServiceImpl implements GuitarService {
 	private GuitarDao guitarDao;
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<GuitarDto> list(Integer page, Integer count) {
-		List<GuitarDto> guitars = guitarDao.list().stream().map(this::newInstance).collect(Collectors.toList());
+		List<GuitarDto> guitars = guitarDao.list().stream()
+				.sorted((guitar1, guitar2) -> guitar1.getModel().compareTo(guitar2.getModel()))
+				.map(this::newInstance).collect(Collectors.toList());
+		return list(page, count, guitars);
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<GuitarDto> list(Integer page, Integer count, List<GuitarDto> guitars) {
 		if (!PaginatedListUtils.isPaginationRequired(page, count)) {
 			return guitars;
 		}
@@ -51,6 +57,14 @@ public class GuitarServiceImpl implements GuitarService {
 	public int getLastPage(int count) {
 		int sizeList = guitarDao.count();
 		return PaginatedListUtils.getLastPage(sizeList, count);
+	}
+
+	@Override
+	public List<GuitarDto> listOrderByYear(Integer page, Integer count) {
+		List<GuitarDto> guitars = guitarDao.list().stream()
+				.sorted((guitar1, guitar2) -> new Integer(guitar1.getYear()).compareTo(guitar2.getYear()))
+				.map(this::newInstance).collect(Collectors.toList());
+		return list(page, count, guitars);
 	}
 
 }
