@@ -10,6 +10,7 @@ import com.stm.guitarApi.dao.GuitarDao;
 import com.stm.guitarApi.dto.GuitarDto;
 import com.stm.guitarApi.model.Guitar;
 import com.stm.guitarApi.service.GuitarService;
+import com.stm.guitarApi.utils.PaginatedListUtils;
 
 @Service
 public class GuitarServiceImpl implements GuitarService {
@@ -18,10 +19,16 @@ public class GuitarServiceImpl implements GuitarService {
 	private GuitarDao guitarDao;
 
 	@Override
-	public List<GuitarDto> list() {
-		return guitarDao.list().stream().map(this::newInstance).collect(Collectors.toList());
+	@SuppressWarnings("unchecked")
+	public List<GuitarDto> list(Integer page, Integer count) {
+		List<GuitarDto> guitars = guitarDao.list().stream().map(this::newInstance).collect(Collectors.toList());
+		if (!PaginatedListUtils.isPaginationRequired(page, count)) {
+			return guitars;
+		}
+		
+		return PaginatedListUtils.getPaginatedList(guitars, page, count);
 	}
-	
+
 	private GuitarDto newInstance(Guitar guitar) {
 		return GuitarDto.newInstance(
 				guitar.getId(),

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.stm.guitarApi.dto.GuitarDto;
@@ -22,8 +23,8 @@ public class GuitarController {
 	  method = RequestMethod.GET,
 	  headers = "Accept=application/json")
 	@ResponseBody
-	public List<GuitarDto> list() {
-		return guitarService.list();
+	public List<GuitarDto> list(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer count) {
+		return guitarService.list(page, count);
 	}
 
 }
