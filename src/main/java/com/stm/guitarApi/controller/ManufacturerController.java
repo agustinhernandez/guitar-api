@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,6 +49,21 @@ public class ManufacturerController {
 
 		manufacturerService.create(command);
 		return Collections.singletonMap("successMessage", "Manufacturer created successfully.");
+	}
+	
+	@RequestMapping(value = "/manufacturer/{id}",
+	  method = RequestMethod.PUT,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public Map<String, Object> edit(@Valid @RequestBody ManufacturerRequest command, @PathVariable String id,
+			BindingResult bindingResult, HttpServletResponse response) {
+
+		if (bindingResult.hasErrors()) {
+			return BindingResultUtils.handleBindingResultErrors(response, bindingResult);
+		}
+
+		manufacturerService.edit(command, id);
+		return Collections.singletonMap("successMessage", "Manufacturer edited successfully.");
 	}
 
 }

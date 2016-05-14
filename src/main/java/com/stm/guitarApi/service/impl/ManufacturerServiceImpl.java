@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.stm.guitarApi.dao.ManufacturerDao;
 import com.stm.guitarApi.dto.ManufacturerDto;
+import com.stm.guitarApi.exception.ServiceGuitarApiException;
 import com.stm.guitarApi.model.Manufacturer;
 import com.stm.guitarApi.request.ManufacturerRequest;
 import com.stm.guitarApi.service.ManufacturerService;
@@ -41,10 +42,32 @@ public class ManufacturerServiceImpl extends AbstractGuitarApiService implements
 	}
 
 	@Override
+	public ManufacturerDto get(String id) {
+		validateManufacturerId(id);
+		return newInstance(manufacturerDao.get(id));
+	}
+	
+	private void validateManufacturerId(String id) {
+		if (!manufacturerDao.exists(id)) {
+			throw new ServiceGuitarApiException("Manufacturer ID not exists");
+		}
+	}
+	
+	@Override
 	@Transactional
 	public void create(ManufacturerRequest command) {
 		validate(command);
 		manufacturerDao.save(newInstance(command));
+	}
+	
+	@Override
+	@Transactional
+	public void edit(ManufacturerRequest command, String id) {
+		validateManufacturerId(id);
+		validate(command);
+		Manufacturer manufacturer = newInstance(command);
+		manufacturer.setId(id);
+		manufacturerDao.update(manufacturer);
 	}
 	
 	private Manufacturer newInstance(ManufacturerRequest command) {

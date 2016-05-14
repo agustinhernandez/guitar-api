@@ -13,5 +13,7 @@ public interface ManufacturerDao {
 	public Manufacturer get(String manufacturerId);
 
 	public void save(Manufacturer manufacturer);
+
+	public void update(Manufacturer manufacturer);
 	
 }

@@ -40,4 +40,9 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
 		manufacturers.put(manufacturerId, manufacturer);
 	}
 
+	@Override
+	public void update(Manufacturer manufacturer) {
+		manufacturers.put(manufacturer.getId(), manufacturer);
+	}
+
 }
