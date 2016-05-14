@@ -65,5 +65,13 @@ public class ManufacturerController {
 		manufacturerService.edit(command, id);
 		return Collections.singletonMap("successMessage", "Manufacturer edited successfully.");
 	}
+	
+	@RequestMapping(value = "/manufacturer/{id}",
+	  method = RequestMethod.GET,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public ManufacturerDto get(@PathVariable String id) {
+		return manufacturerService.get(id);
+	}
 
 }

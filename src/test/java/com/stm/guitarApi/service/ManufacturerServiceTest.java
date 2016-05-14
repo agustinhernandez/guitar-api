@@ -1,5 +1,6 @@
 package com.stm.guitarApi.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -84,6 +85,16 @@ public class ManufacturerServiceTest {
 		manufacturerRequest.setName("testder");
 		
 		manufacturerService.edit(manufacturerRequest, "asdf");
+	}
+	
+	@Test
+	public void shouldGetManufacturer() {
+		assertEquals(manufacturerId1, manufacturerService.get(manufacturerId1).getId());
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldGetManufacturerThrowApiExceptionIfManufacturerIdNotExists() {
+		manufacturerService.get("asdf");
 	}
 
 }
