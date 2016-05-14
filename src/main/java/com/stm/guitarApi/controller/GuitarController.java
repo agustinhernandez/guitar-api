@@ -67,5 +67,20 @@ public class GuitarController {
 		guitarService.create(command);
 		return Collections.singletonMap("successMessage", "Guitar created successfully.");
 	}
+	
+	@RequestMapping(value = "/guitar/{id}",
+	  method = RequestMethod.PUT,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public Map<String, Object> edit(@Valid @RequestBody GuitarRequest command, @PathVariable String id,
+			BindingResult bindingResult, HttpServletResponse response) {
+
+		if (bindingResult.hasErrors()) {
+			return BindingResultUtils.handleBindingResultErrors(response, bindingResult);
+		}
+
+		guitarService.edit(command, id);
+		return Collections.singletonMap("successMessage", "Guitar edited successfully.");
+	}
 
 }

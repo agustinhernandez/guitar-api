@@ -14,5 +14,7 @@ public interface GuitarService {
 	public List<GuitarDto> listOrderByYear(Integer page, Integer count);
 
 	public void create(GuitarRequest command);
+
+	public void edit(GuitarRequest command, String id);
 	
 }

@@ -16,4 +16,6 @@ public interface GuitarDao {
 
 	public Guitar get(String guitarId);
 
+	public void update(Guitar guitar);
+	
 }

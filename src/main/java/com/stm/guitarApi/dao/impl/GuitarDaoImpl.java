@@ -45,5 +45,10 @@ public class GuitarDaoImpl implements GuitarDao {
 		guitar.setId(guitarId);
 		guitars.put(guitarId, guitar);
 	}
+	
+	@Override
+	public void update(Guitar guitar) {
+		guitars.put(guitar.getId(), guitar);
+	}
 
 }

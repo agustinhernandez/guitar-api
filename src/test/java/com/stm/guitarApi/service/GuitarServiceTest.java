@@ -1,6 +1,7 @@
 package com.stm.guitarApi.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -28,6 +29,9 @@ public class GuitarServiceTest {
 	
 	@Value("${data.manufacturerId1}")
 	private String manufacturerId1;
+	
+	@Value("${data.guitarId1}")
+	private String guitarId1;
 
 	
 	private List<GuitarDto> guitars;
@@ -140,6 +144,54 @@ public class GuitarServiceTest {
 		guitarRequest.setYear(1985);
 		
 		guitarService.create(guitarRequest);
+	}
+	
+	@Test
+	public void shouldEditGuitar() {
+		GuitarRequest guitarRequest = new GuitarRequest();
+		guitarRequest.setModel("testcaster");
+		guitarRequest.setManufacturerId(manufacturerId1);
+		guitarRequest.setClassification(Classification.ELECTRIC.name());
+		guitarRequest.setYear(1985);
+		
+		
+		GuitarDto guitar1 = guitars.stream().filter(guitar -> guitar.getId().equals(guitarId1)).findFirst().get();
+		guitarService.edit(guitarRequest, guitarId1);
+		GuitarDto currentGuitar1 = guitarService.list(null, null).stream().filter(guitar -> guitar.getId().equals(guitarId1)).findFirst().get();
+		assertNotEquals(guitar1.getModel(), currentGuitar1.getModel());
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldEditGuitarThrowApiExceptionIfManufacturerIdNotExists() {
+		GuitarRequest guitarRequest = new GuitarRequest();
+		guitarRequest.setModel("testcaster");
+		guitarRequest.setManufacturerId("asdf");
+		guitarRequest.setClassification(Classification.ELECTRIC.name());
+		guitarRequest.setYear(1985);
+		
+		guitarService.edit(guitarRequest, guitarId1);
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldEditGuitarThrowApiExceptionIfRequestHasErrors() {
+		GuitarRequest guitarRequest = new GuitarRequest();
+		guitarRequest.setModel("testcaster");
+		guitarRequest.setManufacturerId(manufacturerId1);
+		guitarRequest.setClassification("asdf");
+		guitarRequest.setYear(1985);
+		
+		guitarService.edit(guitarRequest, guitarId1);
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldEditGuitarThrowApiExceptionIfGuitarIdNotExists() {
+		GuitarRequest guitarRequest = new GuitarRequest();
+		guitarRequest.setModel("testcaster");
+		guitarRequest.setManufacturerId(manufacturerId1);
+		guitarRequest.setClassification(Classification.ELECTRIC.name());
+		guitarRequest.setYear(1985);
+		
+		guitarService.edit(guitarRequest, "asdf");
 	}
 
 }

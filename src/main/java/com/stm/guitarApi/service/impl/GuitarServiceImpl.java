@@ -89,6 +89,19 @@ public class GuitarServiceImpl implements GuitarService {
 		guitarDao.save(newInstance(command));
 	}
 	
+	@Override
+	@Transactional
+	public void edit(GuitarRequest command, String id) {
+		if (!guitarDao.exists(id)) {
+			throw new ServiceGuitarApiException("Guitar ID not exists");
+		}
+		
+		validate(command);
+		Guitar guitar = newInstance(command);
+		guitar.setId(id);
+		guitarDao.update(guitar);
+	}
+	
 	private Guitar newInstance(GuitarRequest command) {
 		String manufacturerId = command.getManufacturerId();
 		if (!manufacturerDao.exists(manufacturerId)) {
