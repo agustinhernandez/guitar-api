@@ -82,5 +82,13 @@ public class GuitarController {
 		guitarService.edit(command, id);
 		return Collections.singletonMap("successMessage", "Guitar edited successfully.");
 	}
+	
+	@RequestMapping(value = "/guitar/{id}",
+	  method = RequestMethod.GET,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public GuitarDto get(@PathVariable String id) {
+		return guitarService.get(id);
+	}
 
 }

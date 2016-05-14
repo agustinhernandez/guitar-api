@@ -154,10 +154,9 @@ public class GuitarServiceTest {
 		guitarRequest.setClassification(Classification.ELECTRIC.name());
 		guitarRequest.setYear(1985);
 		
-		
-		GuitarDto guitar1 = guitars.stream().filter(guitar -> guitar.getId().equals(guitarId1)).findFirst().get();
+		GuitarDto guitar1 = guitarService.get(guitarId1);
 		guitarService.edit(guitarRequest, guitarId1);
-		GuitarDto currentGuitar1 = guitarService.list(null, null).stream().filter(guitar -> guitar.getId().equals(guitarId1)).findFirst().get();
+		GuitarDto currentGuitar1 = guitarService.get(guitarId1);
 		assertNotEquals(guitar1.getModel(), currentGuitar1.getModel());
 	}
 	
@@ -192,6 +191,16 @@ public class GuitarServiceTest {
 		guitarRequest.setYear(1985);
 		
 		guitarService.edit(guitarRequest, "asdf");
+	}
+	
+	@Test
+	public void shouldGetGuitar() {
+		assertEquals(guitarId1, guitarService.get(guitarId1).getId());
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldGetGuitarThrowApiExceptionIfGuitarIdNotExists() {
+		guitarService.get("asdf");
 	}
 
 }

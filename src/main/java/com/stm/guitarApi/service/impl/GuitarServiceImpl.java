@@ -81,6 +81,18 @@ public class GuitarServiceImpl implements GuitarService {
 				.map(this::newInstance).collect(Collectors.toList());
 		return list(page, count, guitars);
 	}
+	
+	@Override
+	public GuitarDto get(String id) {
+		validate(id);
+		return newInstance(guitarDao.get(id));
+	}
+
+	private void validate(String id) {
+		if (!guitarDao.exists(id)) {
+			throw new ServiceGuitarApiException("Guitar ID not exists");
+		}
+	}
 
 	@Override
 	@Transactional
@@ -92,10 +104,7 @@ public class GuitarServiceImpl implements GuitarService {
 	@Override
 	@Transactional
 	public void edit(GuitarRequest command, String id) {
-		if (!guitarDao.exists(id)) {
-			throw new ServiceGuitarApiException("Guitar ID not exists");
-		}
-		
+		validate(id);
 		validate(command);
 		Guitar guitar = newInstance(command);
 		guitar.setId(id);

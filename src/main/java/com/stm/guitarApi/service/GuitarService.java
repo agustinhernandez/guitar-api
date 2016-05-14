@@ -16,5 +16,7 @@ public interface GuitarService {
 	public void create(GuitarRequest command);
 
 	public void edit(GuitarRequest command, String id);
+
+	public GuitarDto get(String id);
 	
 }
