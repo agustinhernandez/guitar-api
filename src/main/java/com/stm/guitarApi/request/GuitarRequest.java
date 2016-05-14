@@ -1,7 +1,5 @@
 package com.stm.guitarApi.request;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,7 +7,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class GuitarRequest  implements Serializable {
+public class GuitarRequest extends AbstractGuitarApiRequest {
 
 	private static final String CLASSIFICATION_PATTERN = "ACOUSTIC|ELECTRIC|CLASICAL";
 

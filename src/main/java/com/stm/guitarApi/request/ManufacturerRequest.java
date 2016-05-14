@@ -1,13 +1,11 @@
 package com.stm.guitarApi.request;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class ManufacturerRequest implements Serializable {
+public class ManufacturerRequest extends AbstractGuitarApiRequest {
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,36 +43,72 @@ public class ManufacturerRequest implements Serializable {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getFormerlyCalled() {
 		return formerlyCalled;
+	}
+
+	public void setFormerlyCalled(String formerlyCalled) {
+		this.formerlyCalled = formerlyCalled;
 	}
 
 	public Integer getFoundedYear() {
 		return foundedYear;
 	}
 
+	public void setFoundedYear(Integer foundedYear) {
+		this.foundedYear = foundedYear;
+	}
+
 	public String getFoundedPlace() {
 		return foundedPlace;
+	}
+
+	public void setFoundedPlace(String foundedPlace) {
+		this.foundedPlace = foundedPlace;
 	}
 
 	public String getFounder() {
 		return founder;
 	}
 
+	public void setFounder(String founder) {
+		this.founder = founder;
+	}
+
 	public String getHeadquarters() {
 		return headquarters;
+	}
+
+	public void setHeadquarters(String headquarters) {
+		this.headquarters = headquarters;
 	}
 
 	public String getAreaServed() {
 		return areaServed;
 	}
 
+	public void setAreaServed(String areaServed) {
+		this.areaServed = areaServed;
+	}
+
 	public String getWebsite() {
 		return website;
 	}
 
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
 	public String getLogoBase64() {
 		return logoBase64;
+	}
+
+	public void setLogoBase64(String logoBase64) {
+		this.logoBase64 = logoBase64;
 	}
 
 	@Override

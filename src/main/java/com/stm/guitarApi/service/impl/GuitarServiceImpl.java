@@ -6,9 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import com.stm.guitarApi.dao.GuitarDao;
 import com.stm.guitarApi.dao.ManufacturerDao;
@@ -21,16 +18,13 @@ import com.stm.guitarApi.service.GuitarService;
 import com.stm.guitarApi.utils.PaginatedListUtils;
 
 @Service
-public class GuitarServiceImpl implements GuitarService {
+public class GuitarServiceImpl extends AbstractGuitarApiService implements GuitarService {
 	
 	@Autowired
 	private GuitarDao guitarDao;
 	
 	@Autowired 
 	private ManufacturerDao manufacturerDao;
-	
-	@Autowired
-	private Validator validator;
 	
 
 	@Override
@@ -134,7 +128,7 @@ public class GuitarServiceImpl implements GuitarService {
 		
 		return Guitar.newInstance(
 				command.getModel(),
-				(command.getYear() != 0) ? command.getYear() : null,
+				command.getYear(),
 				Classification.valueOf(command.getClassification()),
 				manufacturerDao.get(manufacturerId),
 				command.getBodyType(),
@@ -151,14 +145,6 @@ public class GuitarServiceImpl implements GuitarService {
 	private void validateManufacturerId(String id) {
 		if (!manufacturerDao.exists(id)) {
 			throw new ServiceGuitarApiException("Manufacturer ID not exists");
-		}
-	}
-	
-	private void validate(GuitarRequest command) {
-		BindingResult errors = new BeanPropertyBindingResult(command, command.getClass().getName());
-		validator.validate(command, errors);
-		if (errors.hasErrors()) {
-			throw new ServiceGuitarApiException("Guitar request has errors");
 		}
 	}
 
