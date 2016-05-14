@@ -113,6 +113,17 @@ public class GuitarServiceTest {
 	}
 	
 	@Test
+	public void shouldListGuitarsFilterByManufacturer() {
+		List<GuitarDto> guitarsFilterByManufacturer = guitarService.listFilterByManufacturer(manufacturerId1, null, null);
+		assertEquals(2, guitarsFilterByManufacturer.size());
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldListGuitarsFilterByManufacturerThrowApiExceptionIfManufacturerIdNotExists() {
+		guitarService.listFilterByManufacturer("asdf", null, null);
+	}
+	
+	@Test
 	public void shouldCreateGuitar() {
 		GuitarRequest guitarRequest = new GuitarRequest();
 		guitarRequest.setModel("testcaster");

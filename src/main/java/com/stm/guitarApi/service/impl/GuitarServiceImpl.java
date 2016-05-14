@@ -83,12 +83,22 @@ public class GuitarServiceImpl implements GuitarService {
 	}
 	
 	@Override
+	public List<GuitarDto> listFilterByManufacturer(String manufacturerId, Integer page, Integer count) {
+		validateManufacturerId(manufacturerId);
+		
+		List<GuitarDto> guitars = guitarDao.list().stream()
+				.filter(guitar -> guitar.getManufacturer().getId().equals(manufacturerId))
+				.map(this::newInstance).collect(Collectors.toList());
+		return list(page, count, guitars);
+	}
+	
+	@Override
 	public GuitarDto get(String id) {
-		validate(id);
+		validateGuitarId(id);
 		return newInstance(guitarDao.get(id));
 	}
 
-	private void validate(String id) {
+	private void validateGuitarId(String id) {
 		if (!guitarDao.exists(id)) {
 			throw new ServiceGuitarApiException("Guitar ID not exists");
 		}
@@ -104,7 +114,7 @@ public class GuitarServiceImpl implements GuitarService {
 	@Override
 	@Transactional
 	public void edit(GuitarRequest command, String id) {
-		validate(id);
+		validateGuitarId(id);
 		validate(command);
 		Guitar guitar = newInstance(command);
 		guitar.setId(id);
@@ -113,9 +123,7 @@ public class GuitarServiceImpl implements GuitarService {
 	
 	private Guitar newInstance(GuitarRequest command) {
 		String manufacturerId = command.getManufacturerId();
-		if (!manufacturerDao.exists(manufacturerId)) {
-			throw new ServiceGuitarApiException("Manufacturer ID not exists");
-		}
+		validateManufacturerId(manufacturerId);
 		
 		return Guitar.newInstance(
 				command.getModel(),
@@ -131,6 +139,12 @@ public class GuitarServiceImpl implements GuitarService {
 				command.getBridge(),
 				command.getPickup(),
 				command.getImageBase64());
+	}
+
+	private void validateManufacturerId(String id) {
+		if (!manufacturerDao.exists(id)) {
+			throw new ServiceGuitarApiException("Manufacturer ID not exists");
+		}
 	}
 	
 	private void validate(GuitarRequest command) {

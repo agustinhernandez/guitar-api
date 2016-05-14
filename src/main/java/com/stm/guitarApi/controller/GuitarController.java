@@ -53,6 +53,15 @@ public class GuitarController {
 		return guitarService.listOrderByYear(page, count);
 	}
 	
+	@RequestMapping(value = "/guitar/filterByManufacturer/{manufacturerId}",
+	  method = RequestMethod.GET,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public List<GuitarDto> listFilterByManufacturer(@PathVariable String manufacturerId,
+			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer count) {
+		return guitarService.listFilterByManufacturer(manufacturerId, page, count);
+	}
+	
 	@RequestMapping(value = "/guitar",
 	  method = RequestMethod.POST,
 	  headers = "Accept=application/json")
