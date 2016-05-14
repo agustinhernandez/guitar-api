@@ -36,20 +36,19 @@ public class Guitar implements Serializable {
 	private String imageBase64;
 
 	
-	public static Guitar newInstance(String id, String model, int year, Classification classification, Manufacturer manufacturer,
+	public static Guitar newInstance(String model, int year, Classification classification, Manufacturer manufacturer,
 			String bodyType, String neckJoint, int scaleMm, String bodyWood, String neckWood, String fretboardWood,
 			String bridge, String pickup, String imageBase64) {
-		return new Guitar(id, model, year, classification, manufacturer, bodyType, neckJoint, scaleMm, bodyWood, 
+		return new Guitar(model, year, classification, manufacturer, bodyType, neckJoint, scaleMm, bodyWood, 
 				neckWood, fretboardWood, bridge, pickup, imageBase64);
 	}
 	
 	private Guitar() {}
 	
-	private Guitar(String id, String model, int year, Classification classification, Manufacturer manufacturer,
+	private Guitar(String model, int year, Classification classification, Manufacturer manufacturer,
 			String bodyType, String neckJoint, int scaleMm, String bodyWood, String neckWood, String fretboardWood,
 			String bridge, String pickup, String imageBase64) {
 		super();
-		this.id = id;
 		this.model = model;
 		this.year = year;
 		this.classification = classification;

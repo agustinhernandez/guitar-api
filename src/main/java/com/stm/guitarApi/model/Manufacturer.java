@@ -28,18 +28,17 @@ public class Manufacturer implements Serializable {
 	private String logoBase64;
 
 	
-	public static Manufacturer newInstance(String id, String name, String formerlyCalled, int foundedYear, String foundedPlace,
+	public static Manufacturer newInstance(String name, String formerlyCalled, int foundedYear, String foundedPlace,
 			String founder, String headquarters, String areaServed, String website, String logoBase64) {
-		return new Manufacturer(id, name, formerlyCalled, foundedYear, foundedPlace, founder, headquarters,
+		return new Manufacturer(name, formerlyCalled, foundedYear, foundedPlace, founder, headquarters,
 				areaServed, website, logoBase64);
 	}
 	
 	private Manufacturer() {}
 	
-	private Manufacturer(String id, String name, String formerlyCalled, int foundedYear, String foundedPlace,
+	private Manufacturer(String name, String formerlyCalled, int foundedYear, String foundedPlace,
 			String founder, String headquarters, String areaServed, String website, String logoBase64) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.formerlyCalled = formerlyCalled;
 		this.foundedYear = foundedYear;

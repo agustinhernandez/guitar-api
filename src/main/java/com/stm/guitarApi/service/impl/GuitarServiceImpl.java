@@ -5,10 +5,18 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import com.stm.guitarApi.dao.GuitarDao;
+import com.stm.guitarApi.dao.ManufacturerDao;
 import com.stm.guitarApi.dto.GuitarDto;
+import com.stm.guitarApi.exception.ServiceGuitarApiException;
+import com.stm.guitarApi.model.Classification;
 import com.stm.guitarApi.model.Guitar;
+import com.stm.guitarApi.request.GuitarRequest;
 import com.stm.guitarApi.service.GuitarService;
 import com.stm.guitarApi.utils.PaginatedListUtils;
 
@@ -17,6 +25,13 @@ public class GuitarServiceImpl implements GuitarService {
 	
 	@Autowired
 	private GuitarDao guitarDao;
+	
+	@Autowired 
+	private ManufacturerDao manufacturerDao;
+	
+	@Autowired
+	private Validator validator;
+	
 
 	@Override
 	public List<GuitarDto> list(Integer page, Integer count) {
@@ -65,6 +80,43 @@ public class GuitarServiceImpl implements GuitarService {
 				.sorted((guitar1, guitar2) -> new Integer(guitar1.getYear()).compareTo(guitar2.getYear()))
 				.map(this::newInstance).collect(Collectors.toList());
 		return list(page, count, guitars);
+	}
+
+	@Override
+	@Transactional
+	public void create(GuitarRequest command) {
+		validate(command);
+		guitarDao.save(newInstance(command));
+	}
+	
+	private Guitar newInstance(GuitarRequest command) {
+		String manufacturerId = command.getManufacturerId();
+		if (!manufacturerDao.exists(manufacturerId)) {
+			throw new ServiceGuitarApiException("Manufacturer ID not exists");
+		}
+		
+		return Guitar.newInstance(
+				command.getModel(),
+				(command.getYear() != 0) ? command.getYear() : null,
+				Classification.valueOf(command.getClassification()),
+				manufacturerDao.get(manufacturerId),
+				command.getBodyType(),
+				command.getNeckJoint(),
+				command.getScaleMm(),
+				command.getBodyWood(),
+				command.getNeckWood(),
+				command.getFretboardWood(),
+				command.getBridge(),
+				command.getPickup(),
+				command.getImageBase64());
+	}
+	
+	private void validate(GuitarRequest command) {
+		BindingResult errors = new BeanPropertyBindingResult(command, command.getClass().getName());
+		validator.validate(command, errors);
+		if (errors.hasErrors()) {
+			throw new ServiceGuitarApiException("Guitar request has errors");
+		}
 	}
 
 }

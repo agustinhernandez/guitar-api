@@ -9,5 +9,11 @@ public interface GuitarDao {
 	public List<Guitar> list();
 	
 	public int count();
-	
+
+	public void save(Guitar guitar);
+
+	public boolean exists(String guitarId);
+
+	public Guitar get(String guitarId);
+
 }
