@@ -121,6 +121,13 @@ public class GuitarServiceImpl implements GuitarService {
 		guitarDao.update(guitar);
 	}
 	
+	@Override
+	@Transactional
+	public void delete(String id) {
+		validateGuitarId(id);
+		guitarDao.delete(id);
+	}
+	
 	private Guitar newInstance(GuitarRequest command) {
 		String manufacturerId = command.getManufacturerId();
 		validateManufacturerId(manufacturerId);

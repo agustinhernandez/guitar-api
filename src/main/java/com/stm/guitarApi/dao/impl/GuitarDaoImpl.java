@@ -51,4 +51,9 @@ public class GuitarDaoImpl implements GuitarDao {
 		guitars.put(guitar.getId(), guitar);
 	}
 
+	@Override
+	public void delete(String id) {
+		guitars.remove(id);
+	}
+
 }

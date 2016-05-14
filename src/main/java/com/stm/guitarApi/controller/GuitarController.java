@@ -99,5 +99,14 @@ public class GuitarController {
 	public GuitarDto get(@PathVariable String id) {
 		return guitarService.get(id);
 	}
+	
+	@RequestMapping(value = "/guitar/{id}",
+	  method = RequestMethod.DELETE,
+	  headers = "Accept=application/json")
+	@ResponseBody
+	public Map<String, Object> delete(@PathVariable String id) {
+		guitarService.delete(id);
+		return Collections.singletonMap("successMessage", "Guitar deleted successfully.");
+	}
 
 }

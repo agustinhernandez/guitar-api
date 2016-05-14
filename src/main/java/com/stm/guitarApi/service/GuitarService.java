@@ -20,5 +20,7 @@ public interface GuitarService {
 	public GuitarDto get(String id);
 
 	public List<GuitarDto> listFilterByManufacturer(String manufacturerId, Integer page, Integer count);
+
+	public void delete(String id);
 	
 }

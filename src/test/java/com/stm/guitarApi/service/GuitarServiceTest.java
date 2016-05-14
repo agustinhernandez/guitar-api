@@ -213,5 +213,16 @@ public class GuitarServiceTest {
 	public void shouldGetGuitarThrowApiExceptionIfGuitarIdNotExists() {
 		guitarService.get("asdf");
 	}
+	
+	@Test
+	public void shouldDeleteGuitar() {
+		guitarService.delete(guitarId1);
+		assertTrue(guitarsSize > guitarService.list(null, null).size());
+	}
+	
+	@Test(expected=ServiceGuitarApiException.class)
+	public void shouldDeleteGuitarThrowApiExceptionIfGuitarIdNotExists() {
+		guitarService.delete("asdf");
+	}
 
 }
