@@ -89,6 +89,7 @@ Todos los métodos requieren autenticación *HTTP Basic*. Las credenciales son:
 La API está disponible en:
 `https://guitar-api.herokuapp.com`
 
+---
 
 ### GET `/guitar`
 #### Listar guitarras
@@ -114,6 +115,7 @@ La API está disponible en:
 
 **Response Body**: Listado de `Guitar`
 
+---
 
 ### GET `/guitar/lastPage/{count}`
 #### Calcular último número de página
@@ -138,6 +140,8 @@ La API está disponible en:
 
 **Response Body**: Número entero
 
+---
+
 ### GET `/guitar/orderByYear`
 #### Listar guitarras ordenadas por año
 
@@ -161,6 +165,8 @@ La API está disponible en:
 | count | Número de elementos | No |
 
 **Response Body**: Listado de `Guitar`
+
+---
 
 ### GET `/guitar/filterByManufacturer/{manufacturerId}`
 #### Listar guitarras filtradas por marca
@@ -190,6 +196,8 @@ La API está disponible en:
 
 **Response Body**: Listado de `Guitar`
 
+---
+
 ### GET `/guitar/{id}`
 #### Obtener guitarra
 
@@ -213,6 +221,8 @@ La API está disponible en:
 
 **Response Body**: `Guitar`
 
+---
+
 ### POST `/guitar`
 #### Crear guitarra
 
@@ -234,6 +244,8 @@ La API está disponible en:
 **Request Body**: `Guitar`
 
 **Response Body**: Mensajes de éxito o error
+
+---
 
 ### PUT `/guitar/{id}`
 #### Editar guitarra
@@ -261,6 +273,8 @@ La API está disponible en:
 
 **Response Body**: Mensajes de éxito o error
 
+---
+
 ### DELETE `/guitar/{id}`
 #### Borrar guitarra
 
@@ -287,6 +301,8 @@ La API está disponible en:
 
 **Response Body**: Mensajes de éxito o error
 
+---
+
 ### GET `/manufacturer`
 #### Listar marcas
 
@@ -305,6 +321,8 @@ La API está disponible en:
 **Parámetros de Request**: Ninguno
 
 **Response Body**: Listado de `Manufacturer`
+
+---
 
 ### GET `/manufacturer/{id}`
 #### Obtener marca
@@ -329,6 +347,8 @@ La API está disponible en:
 
 **Response Body**: `Manufacturer`
 
+---
+
 ### POST `/manufacturer`
 #### Crear marca
 
@@ -350,6 +370,8 @@ La API está disponible en:
 **Request Body**: `Manufacturer`
 
 **Response Body**: Mensajes de éxito o error
+
+---
 
 ### PUT `/manufacturer/{id}`
 #### Editar marca
@@ -376,6 +398,8 @@ La API está disponible en:
 **Request Body**: `Manufacturer`
 
 **Response Body**: Mensajes de éxito o error
+
+---
 
 # Ejemplos de uso
 
@@ -427,7 +451,8 @@ La API está disponible en:
             "imageBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBARXhpZgAATU0k3l8SoQwDEA85z9aMXjfa8to2jFWSLw2F9nzczvJ6tn//2Q=="
         }
     ]
-    
+
+---
     
 ### Crear guitarra
 
